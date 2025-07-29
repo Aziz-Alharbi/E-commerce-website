@@ -54,7 +54,7 @@ public class UserController {
 
 
     @PostMapping("/buy")
-    public ResponseEntity<?> buyProduct( String userId, String productId, String merchantId) {
+    public ResponseEntity buyProduct( @RequestParam String userId,@RequestParam String productId,@RequestParam String merchantId) {
         ApiResponse response = userService.buyProduct(userId, productId, merchantId);
         if (!response.getResponse().equals("Purchase successful")) {
             return ResponseEntity.status(400).body(new ApiResponse( "Purchase failed"));
@@ -64,7 +64,7 @@ public class UserController {
 
 
     @PostMapping("/refund")
-    public ResponseEntity<?> refundProduct( String userId, String productId,  String merchantId) {
+    public ResponseEntity<?> refundProduct( @RequestParam String userId, @RequestParam String productId, @RequestParam String merchantId) {
         ApiResponse response = userService.refundProduct(userId, productId, merchantId);
         if (!response.getResponse().equals("Refund successful")) {
             return ResponseEntity.status(400).body(response);
@@ -81,10 +81,10 @@ public class UserController {
 
 
     @PostMapping("/replace")
-    public ResponseEntity<?> replaceProduct( String userId,
-                                             String oldProductId,
-                                             String merchantId,
-                                             String newProductId) {
+    public ResponseEntity<?> replaceProduct( @RequestParam String userId,
+                                             @RequestParam String oldProductId,
+                                             @RequestParam String merchantId,
+                                             @RequestParam String newProductId) {
         ApiResponse response = userService.replaceProduct(userId, oldProductId, merchantId, newProductId);
         if (!response.getResponse().equals("Replace successful")) {
             return ResponseEntity.status(400).body(response);
@@ -93,10 +93,11 @@ public class UserController {
     }
 
     @PutMapping("/approve-request")
-    public ResponseEntity<?> approveRequest( String userId,  boolean approve) {
+    public ResponseEntity<?> approveRequest(@RequestParam String userId, @RequestParam boolean approve) {
         ApiResponse response = userService.processApproval(userId, approve);
         return ResponseEntity.status(200).body(response);
     }
+
 
 
 }

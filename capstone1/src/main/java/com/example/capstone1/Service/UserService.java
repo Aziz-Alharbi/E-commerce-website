@@ -216,7 +216,7 @@ public class UserService {
 
 
         if (!user.isCanRefund() || !user.getLastProductId().equals(oldProductId) || !user.getLastMerchantId().equals(merchantId)) {
-            return new ApiResponse("Exchange not allowed");
+            return new ApiResponse("Replacement not allowed");
         }
 
         if (newStock.getStock() <= 0) {

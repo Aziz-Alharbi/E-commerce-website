@@ -45,11 +45,9 @@ public class User {
     @NotNull
     private boolean canRefund = false;
 
-   // @NotNull(message = "Last product ID is required for refund")
-    private String lastProductId;
 
-    // @NotNull(message = "Last merchant ID is required for refund")
-    private String lastMerchantId;
+    private String lastProductId = "";
+    private String lastMerchantId = "";
 
 
     private boolean refundRequested = false;
