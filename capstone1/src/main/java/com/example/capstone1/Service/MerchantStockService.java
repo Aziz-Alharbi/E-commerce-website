@@ -3,11 +3,13 @@ package com.example.capstone1.Service;
 import com.example.capstone1.Model.Merchant;
 import com.example.capstone1.Model.MerchantStock;
 import com.example.capstone1.Model.Product;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
+@RequiredArgsConstructor
 public class MerchantStockService {
 
     ArrayList<MerchantStock> merchantStocks = new ArrayList<>();
@@ -16,8 +18,19 @@ public class MerchantStockService {
         return merchantStocks;
     }
 
-    public void addMerchantStock(MerchantStock merchantStock) {
-        merchantStocks.add(merchantStock);
+    private final ProductService productService;
+    private final MerchantService merchantService;
+
+//    public void addMerchantStock(MerchantStock merchantStock) {
+//        merchantStocks.add(merchantStock);
+//    }
+
+    public void addMerchantStock(MerchantStock stock) {
+        if (!productService.existsById(stock.getProductId()) ||
+                !merchantService.existsById(stock.getMerchantId())) {
+            throw new RuntimeException("Invalid product or merchant ID");
+        }
+        merchantStocks.add(stock);
     }
 
     public boolean deleteMerchantStock(String id) {

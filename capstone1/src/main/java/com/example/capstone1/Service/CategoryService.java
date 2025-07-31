@@ -38,4 +38,8 @@ public class CategoryService {
         }
         return false;
     }
+
+    public boolean existsById(String id) {
+        return categories.stream().anyMatch(c -> c.getId().equals(id));
+    }
 }

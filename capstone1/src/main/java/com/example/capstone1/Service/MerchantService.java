@@ -8,7 +8,7 @@ import java.util.ArrayList;
 @Service
 public class MerchantService {
 
-    ArrayList<Merchant> merchants = new ArrayList<>();
+    private final ArrayList<Merchant> merchants = new ArrayList<>();
 
     public ArrayList<Merchant> getAllMerchants() {
         return merchants;
@@ -19,23 +19,20 @@ public class MerchantService {
     }
 
     public boolean deleteMerchant(String id) {
-        for (Merchant m : merchants) {
-            if (m.getId().equals(id)) {
-                merchants.remove(m);
+        return merchants.removeIf(m -> m.getId().equals(id));
+    }
+
+    public boolean updateMerchant(String id, Merchant merchant) {
+        for (int i = 0; i < merchants.size(); i++) {
+            if (merchants.get(i).getId().equals(id)) {
+                merchants.set(i, merchant);
                 return true;
             }
         }
         return false;
     }
 
-    public boolean updateMerchant(String id, Merchant merchant) {
-        for (Merchant m : merchants) {
-            if (m.getId().equals(id)) {
-                int index = merchants.indexOf(m);
-                merchants.set(index, merchant);
-                return true;
-            }
-        }
-        return false;
+    public boolean existsById(String id) {
+        return merchants.stream().anyMatch(m -> m.getId().equals(id));
     }
 }

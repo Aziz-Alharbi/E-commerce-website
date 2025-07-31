@@ -66,7 +66,7 @@ public class UserController {
     @PostMapping("/refund")
     public ResponseEntity<?> refundProduct( @RequestParam String userId, @RequestParam String productId, @RequestParam String merchantId) {
         ApiResponse response = userService.refundProduct(userId, productId, merchantId);
-        if (!response.getResponse().equals("Refund successful")) {
+        if (!response.getResponse().equals("Refund request submitted, awaiting admin approval")) {
             return ResponseEntity.status(400).body(response);
         }
         return ResponseEntity.status(200).body(response);
@@ -86,7 +86,7 @@ public class UserController {
                                              @RequestParam String merchantId,
                                              @RequestParam String newProductId) {
         ApiResponse response = userService.replaceProduct(userId, oldProductId, merchantId, newProductId);
-        if (!response.getResponse().equals("Replace successful")) {
+        if (!response.getResponse().equals("Replacement request submitted, awaiting admin approval")) {
             return ResponseEntity.status(400).body(response);
         }
         return ResponseEntity.status(200).body(response);

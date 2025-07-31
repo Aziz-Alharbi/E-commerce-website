@@ -240,8 +240,7 @@ public class UserService {
         user.setCanRefund(false);
         user.setLastProductId(newProductId);
 
-      //  return new ApiResponse("Replace successful");
-        return new ApiResponse("Replace request submitted, awaiting admin approval");
+        return new ApiResponse("Replacement request submitted, awaiting admin approval");
 
     }
 
